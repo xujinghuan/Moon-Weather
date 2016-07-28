@@ -214,7 +214,7 @@ public class ChooseAreaActivity extends Activity {
 		if (currentLevel==LEVEL_COUNTY) {
 			queryCities();
 		}else if (currentLevel==LEVEL_CITY) {
-			queryProvinces();
+			queryProvinces(); 
 		}else {
 			finish();
 		}	
