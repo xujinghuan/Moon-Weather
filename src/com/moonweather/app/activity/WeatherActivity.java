@@ -10,10 +10,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class WeatherActivity extends Activity {
      private LinearLayout weatherInfoLayout;
@@ -33,6 +35,7 @@ public class WeatherActivity extends Activity {
     	setContentView(R.layout.weather_layout);
     	
     	weatherInfoLayout=(LinearLayout) findViewById(R.id.weather_info_layout);
+    	cityNameText=(TextView) findViewById(R.id.city_name);
     	publishtext=(TextView) findViewById(R.id.publish_text);
     	weatherDespText=(TextView) findViewById(R.id.weather_desp);
     	temp1Text=(TextView) findViewById(R.id.temp1);
@@ -44,6 +47,7 @@ public class WeatherActivity extends Activity {
 			//有县级代号时就去查询天气
     		publishtext.setText("同步中....");
     		weatherInfoLayout.setVisibility(View.INVISIBLE);
+    		cityNameText.setVisibility(View.VISIBLE);
     		queryWeatherCode(countyCode);
 		}else {
 			//没有县级代号时，直接显示本地天气
@@ -75,7 +79,8 @@ public class WeatherActivity extends Activity {
 							String weatherCode=array[1];
 							queryWeatherInfo(weatherCode);
 						}
-					}if ("weatherCode".equals(type)) {
+					}//这里曾经因为括号的问题天气不能显示，纠结处。。。。。。
+				}else if ("weatherCode".equals(type)) {
 						//处理服务器返回的天气信息
 						Utility.handleWeatherResponse(WeatherActivity.this, response);
 						runOnUiThread( new Runnable() {
@@ -84,7 +89,6 @@ public class WeatherActivity extends Activity {
 							}
 						});
 					}
-				}
 			}
 			
 			@Override

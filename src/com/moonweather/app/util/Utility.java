@@ -26,9 +26,10 @@ public class Utility {
     	   String allProvinces[]=response.split(",");
     	   if(allProvinces!=null&&allProvinces.length>0){
     	   for (String p:allProvinces) {
+    		   String []array=p.split("\\|");
 			Province province=new Province();
-			province.setProvinceCode(p.split("\\|")[0]);
-			province.setProvinceName(p.split("\\|")[1]);
+			province.setProvinceCode(array[0]);
+			province.setProvinceName(array[1]);
 			moonWeatherDB.saveProvince(province);
 		      }
     	   return true;
@@ -43,9 +44,10 @@ public class Utility {
     	   String allcities[]=response.split(",");
     	   if(allcities!=null&&allcities.length>0){
     	   for (String c:allcities) {
+    		String []array=c.split("\\|");
 			City city=new City();
-			city.setCityCode(c.split("\\|")[0]);
-			city.setCityName(c.split("\\|")[1]);
+			city.setCityCode(array[0]);
+			city.setCityName(array[1]);
 			city.setProvinceId(provinceId);
 			moonWeatherDB.saveCity(city);
 		      }
@@ -61,9 +63,10 @@ public class Utility {
     	   String allcounties[]=response.split(",");
     	   if(allcounties!=null&&allcounties.length>0){
     	   for (String c:allcounties) {
+    		String []array=c.split("\\|");
 			County county=new County();
-			county.setCountyCode(c.split("\\|")[0]);
-			county.setCountyName(c.split("\\|")[1]);
+			county.setCountyCode(array[0]);
+			county.setCountyName(array[1]);
 			county.setCityId(cityId);
 			moonWeatherDB.saveCounty(county);
 		      }

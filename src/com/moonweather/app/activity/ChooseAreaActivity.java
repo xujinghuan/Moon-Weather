@@ -30,8 +30,9 @@ import android.widget.Toast;
 
 public class ChooseAreaActivity extends Activity {
        public static final int LEVEL_PROVINCE=0;
-       public static final int LEVEL_CITY=0;
-       public static final int LEVEL_COUNTY=0;
+       //这里下面两个值曾经写成两个0，导致查询错误；
+       public static final int LEVEL_CITY=1;
+       public static final int LEVEL_COUNTY=2;
        
        private ProgressDialog progressDialog;
        private ListView listView;

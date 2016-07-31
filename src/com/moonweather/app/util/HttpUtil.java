@@ -6,6 +6,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import android.util.Log;
+import android.widget.Toast;
+
+import com.moonweather.app.activity.WeatherActivity;
+
 public class HttpUtil {
     public static void sendHttpResquest(final String address,final HttpCallbackListener listener){
     	new Thread(new Runnable() {
@@ -22,9 +27,9 @@ public class HttpUtil {
 					connection.setReadTimeout(8000);
 					
 					InputStream in=connection.getInputStream();
-					BufferedReader reader=new BufferedReader(new InputStreamReader(in));
-					String line;
+					BufferedReader reader=new BufferedReader(new InputStreamReader(in),10*1024);
 					StringBuilder response=new StringBuilder();
+					String line;
 					while ((line=reader.readLine())!=null) {
 						response.append(line);
 					}
