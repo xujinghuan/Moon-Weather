@@ -6,13 +6,16 @@ import com.moonweather.app.util.HttpUtil;
 import com.moonweather.app.util.Utility;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +28,9 @@ public class WeatherActivity extends Activity {
      private TextView temp1Text;//用于显示气温1
      private TextView temp2Text;//用于显示气温2
      private TextView currentDateText;//用于显示当前的日期
+     
+     private Button switchCity;
+     private Button refreshWeather;
      
      
      @Override
@@ -42,6 +48,36 @@ public class WeatherActivity extends Activity {
     	temp2Text=(TextView) findViewById(R.id.temp2);
     	currentDateText=(TextView) findViewById(R.id.current_data);
     	String countyCode=getIntent().getStringExtra("county_code");
+    	
+    	switchCity=(Button) findViewById(R.id.switch_city);
+    	refreshWeather=(Button) findViewById(R.id.refresh_weather);
+    	
+    	//手动切换城市和更新天气
+    	switchCity.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent=new Intent(WeatherActivity.this,ChooseAreaActivity.class);
+				intent.putExtra("from_weather_activity", true);
+				startActivity(intent);
+				finish();
+			}
+		});
+    	refreshWeather.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+			publishtext.setText("同步中....");
+			SharedPreferences prefs=PreferenceManager.getDefaultSharedPreferences(WeatherActivity.this);
+			String weatherCode=prefs.getString("weather_code", "");
+			if (!TextUtils.isEmpty(weatherCode)) {
+				queryWeatherInfo(weatherCode);
+			  }
+			}
+		});
+    	
     	
     	if (!TextUtils.isEmpty(countyCode)) {
 			//有县级代号时就去查询天气
