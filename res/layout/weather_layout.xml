@@ -34,7 +34,7 @@
          android:layout_width="match_parent"
          android:layout_height="0dp"
          android:layout_weight="1"
-         android:background="#27a5f9">
+         android:background="@drawable/weather_background">
         <TextView 
             android:id="@+id/publish_text"
              android:layout_alignParentRight="true"
